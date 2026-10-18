@@ -288,6 +288,16 @@ export const AdminPage: React.FC = () => {
                         >
                           {t.rejectBtn}
                         </button>
+                        <button
+                          onClick={() => {
+                            setTargetUid(d.uid);
+                            setTargetLabel(d.displayLabel);
+                            setActiveTab('verifications');
+                          }}
+                          className="px-2 py-1 text-[11px] font-semibold bg-teal-800 hover:bg-teal-900 text-white rounded-sm"
+                        >
+                          {language === 'bn' ? 'যাচাই করুন' : 'Verify'}
+                        </button>
                       </div>
                     </td>
                   </tr>

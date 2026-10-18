@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext.tsx';
 import { SITE_CONFIG } from '../../config/siteConfig.ts';
-import { Droplet, PhoneCall, Mail, ShieldAlert, Heart } from 'lucide-react';
+import { RoktosLogo } from '../common/RoktosLogo.tsx';
+import { PhoneCall, Mail, ShieldAlert, Heart } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
@@ -11,19 +12,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { language, t } = useLanguage();
 
   return (
-    <footer className="bg-stone-900 text-stone-300 pt-12 pb-8 border-t border-stone-800 text-xs">
+    <footer className="bg-slate-950 text-slate-300 pt-12 pb-8 border-t border-slate-800 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-stone-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-slate-800">
           {/* Col 1: Brand & Identity */}
           <div className="lg:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-md bg-emerald-800 text-white flex items-center justify-center">
-                <Droplet className="w-4 h-4 text-rose-400 fill-rose-500" />
-              </div>
-              <span className="font-extrabold text-lg text-white tracking-tight">
-                {t.siteName}
-              </span>
-            </div>
+            <button
+              onClick={() => onNavigate('/')}
+              className="text-left group transition-opacity hover:opacity-95"
+              aria-label="ROKTOS Home"
+            >
+              <RoktosLogo variant="horizontal" theme="dark" size="md" />
+            </button>
             <p className="text-stone-400 leading-relaxed text-xs max-w-sm">
               {language === 'bn' ? SITE_CONFIG.taglineBn : SITE_CONFIG.taglineEn}
             </p>

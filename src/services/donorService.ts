@@ -137,3 +137,31 @@ export async function togglePublicVisibility(
     handleFirestoreError(err, OperationType.UPDATE, `${PUBLIC_DONORS_COLLECTION}/${uid}`);
   }
 }
+
+export async function requestVerificationReview(
+  uid: string,
+  type: 'identity' | 'blood_group',
+  userDisplayLabel: string,
+  notes?: string
+): Promise<string> {
+  try {
+    const reviewId = `vr_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+    const reviewRef = doc(db, 'verificationReviews', reviewId);
+    await setDoc(reviewRef, {
+      id: reviewId,
+      uid,
+      userDisplayLabel,
+      type,
+      status: 'pending',
+      reviewerUid: '',
+      policyVersion: '2026-v2',
+      reasonCode: 'USER_REQUESTED_REVIEW',
+      reviewerNotes: notes || 'User submitted in-app verification request',
+      createdAt: new Date().toISOString(),
+      reviewedAt: null,
+    });
+    return reviewId;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.CREATE, `verificationReviews/${uid}`);
+  }
+}

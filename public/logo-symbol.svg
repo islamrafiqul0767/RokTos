@@ -1,0 +1,13 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dropGradSymbol" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#E11D48"/>
+      <stop offset="50%" stopColor="#BE123C"/>
+      <stop offset="100%" stopColor="#881337"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 3C24 3 9 20.4 9 30.6C9 38.6 15.7 45 24 45C32.3 45 39 38.6 39 30.6C39 20.4 24 3 24 3Z" fill="url(#dropGradSymbol)"/>
+  <path d="M24 16C21.8 12.8 17.5 13.5 15.5 16.5C13.2 20 14 24.5 18 28.5L24 34.5L30 28.5C34 24.5 34.8 20 32.5 16.5C30.5 13.5 26.2 12.8 24 16Z" fill="#FFFFFF"/>
+  <path d="M24 19.5C22.6 21.5 20.2 24.2 20.2 26.5C20.2 28.6 21.9 30.2 24 30.2C26.1 30.2 27.8 28.6 27.8 26.5C27.8 24.2 25.4 21.5 24 19.5Z" fill="url(#dropGradSymbol)"/>
+  <circle cx="16" cy="27" r="1.5" fill="#FFFFFF" fill-opacity="0.8"/>
+</svg>

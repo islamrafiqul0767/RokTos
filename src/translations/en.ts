@@ -1,15 +1,15 @@
 export const en = {
   // Common
-  siteName: 'RoktoBondhu',
+  siteName: 'ROKTOS',
   siteTagline: 'Connecting people who need blood with willing community donors.',
-  disclaimerShort: 'RoktoBondhu is a volunteer platform, not a medical clinic or blood bank. Always ensure cross-matching and mandatory screening under medical supervision prior to any transfusion.',
+  disclaimerShort: 'ROKTOS is an opt-in volunteer discovery platform, not a medical clinic or blood bank. Always ensure cross-matching and mandatory screening under medical supervision prior to any transfusion.',
   emergencyTitle: 'Emergency Blood Need?',
   emergencyNotice: 'This is not an emergency ambulance or instant blood delivery dispatch. In critical situations, immediately contact your nearest hospital blood bank. Bangladesh National Emergency: 999, Health Helpline: 16263.',
   searchDonors: 'Find Donors',
   createRequest: 'Request Blood',
   viewRequests: 'Active Requests',
   howItWorks: 'How It Works',
-  aboutUs: 'About RoktoBondhu',
+  aboutUs: 'About ROKTOS',
   safety: 'Safety & Medical Guide',
   eligibility: 'Donor Eligibility',
   faq: 'Frequently Asked Questions',
@@ -47,7 +47,8 @@ export const en = {
   // Home
   heroTitle: 'Humane Technology for Community Blood Discovery',
   heroSubtitle: 'Discover willing blood donors across Bangladesh with strict privacy safeguards, or submit structured blood requests for patients in need.',
-  whyRoktoBondhu: 'Why RoktoBondhu?',
+  whyRoktos: 'Why ROKTOS?',
+  whyRoktoBondhu: 'Why ROKTOS?',
   pillar1Title: 'Privacy & Explicit Consent',
   pillar1Desc: 'Your personal phone or email is never dumped into public web directories. Discovery is consent-first.',
   pillar2Title: 'Strictly Non-Commercial',

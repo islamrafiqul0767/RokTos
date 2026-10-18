@@ -11,32 +11,32 @@ export const AboutPage: React.FC = () => {
     <>
       <SEOHead
         title={t.aboutUs}
-        description="RoktoBondhu is an open, non-commercial blood donor discovery and request support platform for Bangladesh."
+        description="ROKTOS is an open, non-commercial blood donor discovery and request support platform for Bangladesh."
         canonicalPath="/about"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+          <span className="text-xs font-bold text-rose-800 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
             {language === 'bn' ? 'আমাদের লক্ষ্য ও দর্শন' : 'Our Mission & Philosophy'}
           </span>
-          <h1 className="text-3xl font-extrabold text-stone-900 tracking-tight">
-            {language === 'bn' ? 'রক্তবন্ধু সম্পর্কে' : 'About RoktoBondhu'}
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            {language === 'bn' ? 'রক্তস (ROKTOS) সম্পর্কে' : 'About ROKTOS'}
           </h1>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
-            {SITE_CONFIG.taglineBn}
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            {language === 'bn' ? SITE_CONFIG.taglineBn : SITE_CONFIG.taglineEn}
           </p>
         </div>
 
-        <div className="bg-white p-6 sm:p-8 rounded-lg border border-stone-200 shadow-xs space-y-6 text-xs sm:text-sm text-stone-700 leading-relaxed">
-          <h2 className="text-lg font-bold text-stone-900 border-b border-stone-100 pb-3">
+        <div className="bg-white p-6 sm:p-8 rounded-lg border border-slate-200 shadow-xs space-y-6 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <h2 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
             {language === 'bn' ? 'আমাদের মূল অঙ্গীকার' : 'Core Principles'}
           </h2>
 
           <p>
             {language === 'bn'
-              ? 'বাংলাদেশে জরুরি রক্তের প্রয়োজনে প্রায়শই রোগীর স্বজনরা ফেসবুকের উন্মুক্ত গ্রুপ বা মেসেঞ্জারে ব্যক্তিগত মোবাইল নম্বর ছড়িয়ে দেন। এর ফলে নারীরা ও সাধারণ রক্তদাতারা তীব্র সাইবার বুলিং, প্রতারণা ও অযাচিত ফোন কলের শিকার হন। রক্তবন্ধু তৈরি করা হয়েছে এই সমস্যার একটি সম্মানজনক ও তথ্যসুরক্ষিত সমাধান হিসেবে।'
-              : 'In Bangladesh, blood emergencies often lead families to post raw mobile numbers on social media, exposing volunteers and patients to spam, scams, and harassment. RoktoBondhu was engineered to provide a privacy-preserving, consent-first community discovery platform.'}
+              ? 'বাংলাদেশে জরুরি রক্তের প্রয়োজনে প্রায়শই রোগীর স্বজনরা ফেসবুকের উন্মুক্ত গ্রুপ বা মেসেঞ্জারে ব্যক্তিগত মোবাইল নম্বর ছড়িয়ে দেন। এর ফলে নারীরা ও সাধারণ রক্তদাতারা তীব্র সাইবার বুলিং, প্রতারণা ও অযাচিত ফোন কলের শিকার হন। রক্তস (ROKTOS) তৈরি করা হয়েছে এই সমস্যার একটি সম্মানজনক, নিরাপদ ও তথ্যসুরক্ষিত সমাধান হিসেবে।'
+              : 'In Bangladesh, blood emergencies often lead families to post raw mobile numbers on social media, exposing volunteers and patients to spam, scams, and harassment. ROKTOS was engineered to provide a privacy-preserving, consent-first community discovery platform.'}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

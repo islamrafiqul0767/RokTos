@@ -1,0 +1,21 @@
+<svg viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dropGradFull" x1="10" y1="6" x2="42" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#E11D48"/>
+      <stop offset="50%" stopColor="#BE123C"/>
+      <stop offset="100%" stopColor="#881337"/>
+    </linearGradient>
+  </defs>
+  <!-- Symbol -->
+  <g transform="translate(6, 6) scale(1.05)">
+    <path d="M24 3C24 3 9 20.4 9 30.6C9 38.6 15.7 45 24 45C32.3 45 39 38.6 39 30.6C39 20.4 24 3 24 3Z" fill="url(#dropGradFull)"/>
+    <path d="M24 16C21.8 12.8 17.5 13.5 15.5 16.5C13.2 20 14 24.5 18 28.5L24 34.5L30 28.5C34 24.5 34.8 20 32.5 16.5C30.5 13.5 26.2 12.8 24 16Z" fill="#FFFFFF"/>
+    <path d="M24 19.5C22.6 21.5 20.2 24.2 20.2 26.5C20.2 28.6 21.9 30.2 24 30.2C26.1 30.2 27.8 28.6 27.8 26.5C27.8 24.2 25.4 21.5 24 19.5Z" fill="url(#dropGradFull)"/>
+    <circle cx="16" cy="27" r="1.5" fill="#FFFFFF" fill-opacity="0.8"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="64" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#0F172A" letter-spacing="-0.5">ROKTOS</text>
+  <rect x="186" y="18" width="28" height="16" rx="4" fill="#BE123C" fill-opacity="0.12"/>
+  <text x="191" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" fill="#BE123C">BD</text>
+  <text x="65" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="0.2">Blood Donor Network Bangladesh</text>
+</svg>

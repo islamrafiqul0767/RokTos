@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext.tsx';
 import { useAuth } from '../../context/AuthContext.tsx';
 import { MedicalDisclaimerBanner } from '../common/MedicalDisclaimerBanner.tsx';
+import { RoktosLogo } from '../common/RoktosLogo.tsx';
 import {
-  Droplet,
   Menu,
   X,
   Search,
@@ -59,20 +59,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => handleNav('/')}
-              className="flex items-center gap-2 text-left group"
-              aria-label="RoktoBondhu Home"
+              className="flex items-center text-left group transition-opacity hover:opacity-95"
+              aria-label="ROKTOS Home"
             >
-              <div className="w-9 h-9 rounded-md bg-emerald-900 text-white flex items-center justify-center shadow-xs group-hover:bg-emerald-800 transition-colors">
-                <Droplet className="w-5 h-5 text-rose-400 fill-rose-500" />
-              </div>
-              <div>
-                <span className="font-extrabold text-lg text-emerald-950 tracking-tight block leading-tight">
-                  {t.siteName}
-                </span>
-                <span className="text-[10px] text-stone-500 font-medium block">
-                  {language === 'bn' ? 'রক্তদাতা অনুসন্ধান প্ল্যাটফর্ম' : 'Blood Discovery Platform'}
-                </span>
-              </div>
+              <RoktosLogo variant="horizontal" size="md" />
             </button>
           </div>
 
@@ -85,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
                   <button
                     key={link.path}
                     onClick={() => handleNav(link.path)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md text-white bg-rose-700 hover:bg-rose-800 transition-colors shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md text-white bg-rose-700 hover:bg-rose-800 transition-colors shadow-xs"
                   >
                     {link.icon && <link.icon className="w-3.5 h-3.5" />}
                     <span>{link.label}</span>
@@ -96,10 +86,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
                 <button
                   key={link.path}
                   onClick={() => handleNav(link.path)}
-                  className={`px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                  className={`px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                     isActive
-                      ? 'text-emerald-900 bg-emerald-50 font-bold'
-                      : 'text-stone-700 hover:text-emerald-900 hover:bg-stone-50'
+                      ? 'text-rose-700 bg-rose-50 font-bold'
+                      : 'text-slate-700 hover:text-rose-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{link.label}</span>

@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getDocs,
+  getDoc,
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
@@ -63,11 +64,9 @@ export async function submitVerificationDecision(params: {
 
     // Update public donor profile if exists
     const publicRef = doc(db, PUBLIC_DONORS_COLLECTION, params.targetUid);
-    const publicSnap = await getDocs(collection(db, PUBLIC_DONORS_COLLECTION));
-    let hasPublic = false;
-    publicSnap.forEach(d => { if (d.id === params.targetUid) hasPublic = true; });
+    const publicSnap = await getDoc(publicRef);
 
-    if (hasPublic) {
+    if (publicSnap.exists()) {
       const updateData: Record<string, any> = { updatedAt: new Date().toISOString() };
       if (params.type === 'blood_group') {
         updateData.bloodGroupReviewStatus = params.status;
@@ -77,15 +76,18 @@ export async function submitVerificationDecision(params: {
       await updateDoc(publicRef, updateData);
     }
 
-    // Update private user profile
+    // Update private user profile if exists
     const privateRef = doc(db, USER_PROFILES_COLLECTION, params.targetUid);
-    const privateUpdate: Record<string, any> = { updatedAt: new Date().toISOString() };
-    if (params.type === 'blood_group') {
-      privateUpdate.bloodGroupReviewStatus = params.status;
-    } else {
-      privateUpdate.identityReviewStatus = params.status;
+    const privateSnap = await getDoc(privateRef);
+    if (privateSnap.exists()) {
+      const privateUpdate: Record<string, any> = { updatedAt: new Date().toISOString() };
+      if (params.type === 'blood_group') {
+        privateUpdate.bloodGroupReviewStatus = params.status;
+      } else {
+        privateUpdate.identityReviewStatus = params.status;
+      }
+      await updateDoc(privateRef, privateUpdate);
     }
-    await updateDoc(privateRef, privateUpdate);
 
     // Record audit action
     await recordModerationAction({

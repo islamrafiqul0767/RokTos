@@ -102,3 +102,66 @@ test('validateDonorRegistration enforces age 18+ and mandatory consent', () => {
   });
   assert.equal(validResult.isValid, true);
 });
+
+test('checkDonorEligibility correctly evaluates clinical deferral and eligibility', async () => {
+  const { checkDonorEligibility } = await import('./eligibility.ts');
+
+  // Case 1: Healthy eligible donor
+  const eligible = checkDonorEligibility({
+    age: 25,
+    weightKg: 65,
+    gender: 'male',
+    daysSinceLastDonation: 110,
+    hasRecentFeverOrFlu: false,
+    onAntibiotics: false,
+    hasRecentSurgery: false,
+    hasRecentTattooOrPiercing: false,
+    isPregnantOrNursing: false,
+    hasChronicCondition: false,
+  });
+  assert.equal(eligible.isEligible, true);
+  assert.equal(eligible.status, 'eligible');
+  assert.equal(eligible.reasonsBn.length, 0);
+
+  // Case 2: Underweight donor
+  const underweight = checkDonorEligibility({
+    age: 22,
+    weightKg: 42,
+    gender: 'female',
+    daysSinceLastDonation: null,
+    hasRecentFeverOrFlu: false,
+    onAntibiotics: false,
+    hasRecentSurgery: false,
+    hasRecentTattooOrPiercing: false,
+    isPregnantOrNursing: false,
+    hasChronicCondition: false,
+  });
+  assert.equal(underweight.isEligible, false);
+  assert.equal(underweight.status, 'temporarily_deferred');
+  assert.ok(underweight.reasonsBn[0].includes('৪৫ কেজি'));
+
+  // Case 3: Insufficient interval for male (< 90 days)
+  const tooSoon = checkDonorEligibility({
+    age: 30,
+    weightKg: 70,
+    gender: 'male',
+    daysSinceLastDonation: 45,
+    hasRecentFeverOrFlu: false,
+    onAntibiotics: false,
+    hasRecentSurgery: false,
+    hasRecentTattooOrPiercing: false,
+    isPregnantOrNursing: false,
+    hasChronicCondition: false,
+  });
+  assert.equal(tooSoon.isEligible, false);
+  assert.equal(tooSoon.status, 'temporarily_deferred');
+  assert.equal(tooSoon.daysToWait, 45); // 90 - 45 = 45 days
+});
+
+test('BLOOD_COMPATIBILITY accurately identifies universal donor and recipient', async () => {
+  const { BLOOD_COMPATIBILITY } = await import('./eligibility.ts');
+  assert.equal(BLOOD_COMPATIBILITY['O-'].isUniversalDonor, true);
+  assert.equal(BLOOD_COMPATIBILITY['O-'].canDonateTo.length, 8);
+  assert.equal(BLOOD_COMPATIBILITY['AB+'].isUniversalRecipient, true);
+  assert.equal(BLOOD_COMPATIBILITY['AB+'].canReceiveFrom.length, 8);
+});

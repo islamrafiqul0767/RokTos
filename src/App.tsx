@@ -68,7 +68,7 @@ export default function App() {
       case '/safety':
         return <SafetyPage />;
       case '/donor-eligibility':
-        return <DonorEligibilityPage />;
+        return <DonorEligibilityPage onNavigate={navigate} />;
       case '/faq':
         return <FAQPage />;
       case '/contact':

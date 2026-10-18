@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext.tsx';
 import type { BloodRequest } from '../../types/index.ts';
 import { ReportModal } from '../common/ReportModal.tsx';
+import { OfferHelpModal } from './OfferHelpModal.tsx';
 import { MapPin, Building2, Calendar, AlertOctagon, Clock, Flag, HeartHandshake } from 'lucide-react';
 
 interface RequestCardProps {
@@ -12,6 +13,7 @@ interface RequestCardProps {
 export const RequestCard: React.FC<RequestCardProps> = ({ request, onOfferHelp }) => {
   const { language, t } = useLanguage();
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [isOfferHelpOpen, setIsOfferHelpOpen] = useState(false);
   const [helpOffered, setHelpOffered] = useState(false);
 
   const urgencyStyles: Record<string, { bg: string; text: string; border: string; label: string }> = {
@@ -110,17 +112,17 @@ export const RequestCard: React.FC<RequestCardProps> = ({ request, onOfferHelp }
           </button>
 
           {helpOffered ? (
-            <span className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-md text-emerald-800 bg-emerald-100 border border-emerald-300">
-              <HeartHandshake className="w-4 h-4" />
+            <span className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-md text-teal-800 bg-teal-50 border border-teal-300">
+              <HeartHandshake className="w-4 h-4 text-teal-700" />
               <span>{language === 'bn' ? 'আগ্রহ প্রকাশ করা হয়েছে' : 'Interest Recorded'}</span>
             </span>
           ) : (
             <button
               onClick={() => {
-                setHelpOffered(true);
+                setIsOfferHelpOpen(true);
                 if (onOfferHelp) onOfferHelp(request);
               }}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-md text-white bg-emerald-800 hover:bg-emerald-900 transition-colors shadow-xs"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-md text-white bg-rose-700 hover:bg-rose-800 transition-colors shadow-xs"
             >
               <HeartHandshake className="w-4 h-4" />
               <span>{language === 'bn' ? 'সাহায্য করতে আগ্রহী' : 'I Can Donate'}</span>
@@ -128,6 +130,13 @@ export const RequestCard: React.FC<RequestCardProps> = ({ request, onOfferHelp }
           )}
         </div>
       </div>
+
+      <OfferHelpModal
+        isOpen={isOfferHelpOpen}
+        onClose={() => setIsOfferHelpOpen(false)}
+        request={request}
+        onSuccess={() => setHelpOffered(true)}
+      />
 
       <ReportModal
         isOpen={isReportOpen}

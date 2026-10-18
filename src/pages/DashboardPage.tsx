@@ -3,8 +3,9 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { useAuth } from '../context/AuthContext.tsx';
 import { fetchReceivedContactRequests, fetchSentContactRequests, updateContactStatus } from '../services/contactService.ts';
 import { fetchUserBloodRequests, updateRequestStatus, deleteBloodRequest } from '../services/requestService.ts';
-import { updateAvailability, togglePublicVisibility } from '../services/donorService.ts';
+import { updateAvailability, togglePublicVisibility, requestVerificationReview } from '../services/donorService.ts';
 import type { ContactRequest, BloodRequest, AvailabilityStatus } from '../types/index.ts';
+import { ReviewBadge } from '../components/common/Badge.tsx';
 import { SEOHead } from '../components/common/SEOHead.tsx';
 import {
   LayoutDashboard,
@@ -20,6 +21,9 @@ import {
   CheckCircle,
   Phone,
   AlertCircle,
+  ShieldCheck,
+  Shield,
+  FileCheck,
 } from 'lucide-react';
 
 interface DashboardPageProps {
@@ -37,6 +41,27 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
   const [availability, setAvailabilityState] = useState<AvailabilityStatus>('available');
   const [visibility, setVisibilityState] = useState(true);
+  const [verSubmitting, setVerSubmitting] = useState<'identity' | 'blood_group' | null>(null);
+  const [verMessage, setVerMessage] = useState<string | null>(null);
+
+  const handleRequestVerification = async (type: 'identity' | 'blood_group') => {
+    if (!user) return;
+    setVerSubmitting(type);
+    try {
+      await requestVerificationReview(user.uid, type, profile?.displayName || user.displayName || 'Donor');
+      setVerMessage(
+        language === 'bn'
+          ? 'যাচাইকরণের আবেদন সফলভাবে জমা দেওয়া হয়েছে! অ্যাডমিন প্যানেল শীঘ্রই এটি পর্যালোচনা করবে।'
+          : 'Verification request submitted! Staff reviewers will audit your records shortly.'
+      );
+      await refreshProfile();
+      setTimeout(() => setVerMessage(null), 5000);
+    } catch (err: any) {
+      setVerMessage(err?.message || 'Failed to submit review request');
+    } finally {
+      setVerSubmitting(null);
+    }
+  };
 
   const loadDashboardData = async () => {
     if (!user) return;
@@ -196,6 +221,99 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 {t.paused}
               </button>
             </div>
+          </div>
+        )}
+
+        {/* Verification Status & Review Workflow (If Donor) */}
+        {isDonor && (
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div>
+                <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-teal-700" />
+                  <span>{language === 'bn' ? 'যাচাইকরণ স্ট্যাটাস ও রিভিউ' : 'Verification Badges & Review Status'}</span>
+                </h2>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  {language === 'bn'
+                    ? 'কোনো পেইড ব্যাজ নেই। রিভিউয়ারদের নিরীক্ষার মাধ্যমে পরিচয় ও রক্তের গ্রুপের প্রমাণ অনুমোদিত হয়।'
+                    : 'Transparent, non-paid review tiers separating identity and blood group evidence.'}
+                </p>
+              </div>
+            </div>
+
+            {verMessage && (
+              <div className="p-3 bg-teal-50 border border-teal-200 rounded-md text-xs text-teal-900 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-teal-700 shrink-0" />
+                <span>{verMessage}</span>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Identity Review Card */}
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-slate-900">{language === 'bn' ? 'জাতীয় পরিচয় পর্যালোচনা' : 'Identity Verification'}</span>
+                  <ReviewBadge type="identity" status={profile?.identityReviewStatus || 'not_started'} />
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  {language === 'bn'
+                    ? 'আপনার গুগল অ্যাকাউন্টের তথ্যের সাথে নিবন্ধিত নামের সঙ্গতি রিভিউয়ারদের দ্বারা যাচাই করা হয়।'
+                    : 'Audited against authentic user sign-in to protect patients from fabricated personas.'}
+                </p>
+                {profile?.identityReviewStatus !== 'reviewed' && (
+                  <button
+                    onClick={() => handleRequestVerification('identity')}
+                    disabled={verSubmitting === 'identity' || profile?.identityReviewStatus === 'pending'}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md text-white bg-slate-800 hover:bg-slate-900 disabled:opacity-50 transition-colors shadow-xs"
+                  >
+                    <Shield className="w-3.5 h-3.5" />
+                    <span>
+                      {profile?.identityReviewStatus === 'pending'
+                        ? (language === 'bn' ? 'যাচাইকরণ অপেক্ষমান...' : 'Review Pending...')
+                        : verSubmitting === 'identity'
+                        ? t.loading
+                        : (language === 'bn' ? 'পরিচয় যাচাইয়ের আবেদন' : 'Request Identity Review')}
+                    </span>
+                  </button>
+                )}
+              </div>
+
+              {/* Blood Group Evidence Card */}
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-slate-900">{language === 'bn' ? 'রক্তের গ্রুপ প্রমাণ পর্যালোচনা' : 'Blood Group Evidence'}</span>
+                  <ReviewBadge type="blood_group" status={profile?.bloodGroupReviewStatus || 'not_started'} />
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  {language === 'bn'
+                    ? 'পূর্ববর্তী রক্তদান বা ল্যাব টেস্ট কার্ডের রেকর্ড রিভিউয়ারদের মাধ্যমে পর্যালোচিত হয়।'
+                    : 'Requires documentary test card or blood donor card confirmed during review.'}
+                </p>
+                {profile?.bloodGroupReviewStatus !== 'reviewed' && (
+                  <button
+                    onClick={() => handleRequestVerification('blood_group')}
+                    disabled={verSubmitting === 'blood_group' || profile?.bloodGroupReviewStatus === 'pending'}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md text-white bg-rose-700 hover:bg-rose-800 disabled:opacity-50 transition-colors shadow-xs"
+                  >
+                    <FileCheck className="w-3.5 h-3.5" />
+                    <span>
+                      {profile?.bloodGroupReviewStatus === 'pending'
+                        ? (language === 'bn' ? 'যাচাইকরণ অপেক্ষমান...' : 'Review Pending...')
+                        : verSubmitting === 'blood_group'
+                        ? t.loading
+                        : (language === 'bn' ? 'গ্রুপ প্রমাণ যাচাইয়ের আবেদন' : 'Request Blood Group Review')}
+                    </span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-500 bg-slate-100/70 p-2.5 rounded-md border border-slate-200">
+              <strong>{language === 'bn' ? 'নিরাপত্তা সতর্কতা:' : 'Security Notice:'}</strong>{' '}
+              {language === 'bn'
+                ? 'সংবেদনশীল তথ্যের সুরক্ষার্থে এনআইডি কার্ড বা প্রেসক্রিপশনের মতো ব্যক্তিগত ডকুমেন্ট উন্মুক্ত ক্লাউড সার্ভারে সরাসরি আপলোড করা সম্পূর্ণ নিষিদ্ধ রাখা হয়েছে। আমাদের অনুমোদিত প্রতিনিধি ম্যানুয়ালি তথ্য নিশ্চিত করবেন।'
+                : 'Raw document uploads remain strictly disabled to safeguard users against data breaches. Audits are performed by authorized reviewers.'}
+            </p>
           </div>
         )}
 

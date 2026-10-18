@@ -141,7 +141,14 @@ service cloud.firestore {
     match /verificationReviews/{reviewId} {
       allow get: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
       allow list: if isAdmin();
-      allow create, update, delete: if isAdmin();
+      allow create: if isSignedIn() && isValidId(reviewId) && (
+        isAdmin() || (
+          incoming().uid == request.auth.uid &&
+          incoming().status == 'pending' &&
+          incoming().reasonCode is string
+        )
+      );
+      allow update, delete: if isAdmin();
     }
 
     // 7. Moderation Actions
