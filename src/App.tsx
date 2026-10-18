@@ -20,6 +20,7 @@ import { DonorRegisterPage } from './pages/DonorRegisterPage.tsx';
 import { DashboardPage } from './pages/DashboardPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AdminPage } from './pages/AdminPage.tsx';
+import { LoginPage } from './pages/LoginPage.tsx';
 import { NotFoundPage } from './pages/NotFoundPage.tsx';
 
 export default function App() {
@@ -93,6 +94,8 @@ export default function App() {
         return <ProfilePage />;
       case '/admin':
         return <AdminPage />;
+      case '/login':
+        return <LoginPage onNavigate={navigate} />;
       default:
         return <NotFoundPage onNavigate={navigate} />;
     }

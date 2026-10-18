@@ -179,7 +179,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onFilterBloodGro
               {SITE_CONFIG.name} — {language === 'bn' ? 'মানবিক প্রযুক্তি' : 'Humane Platform'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-              {t.whyRoktos || t.whyRoktoBondhu}
+              {t.whyRoktos}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
               {language === 'bn'

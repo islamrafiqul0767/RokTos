@@ -19,7 +19,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentBn: (
         <>
           <p>
-            রক্তবন্ধু (RoktoBondhu) ব্যবহারকারীদের গোপনীয়তা ও মানবাধিকার রক্ষায় সর্বোচ্চ অগ্রাধিকার দেয়। আমাদের লক্ষ্য হলো কাউকে অযাচিত সাইবার বুলিং বা স্প্যামিংয়ের সম্মুখীন না করে মানবিক রক্ত অনুসন্ধান সহজতর করা।
+            রক্তস (ROKTOS) ব্যবহারকারীদের গোপনীয়তা ও মানবাধিকার রক্ষায় সর্বোচ্চ অগ্রাধিকার দেয়। আমাদের লক্ষ্য হলো কাউকে অযাচিত সাইবার বুলিং বা স্প্যামিংয়ের সম্মুখীন না করে মানবিক রক্ত অনুসন্ধান সহজতর করা।
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">১. কী কী তথ্য আমরা সংগ্রহ করি?</h3>
           <p>
@@ -38,7 +38,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentEn: (
         <>
           <p>
-            RoktoBondhu is engineered from the ground up to protect user privacy and eradicate unsolicited phone spam and cyber harassment.
+            ROKTOS is engineered from the ground up to protect user privacy and eradicate unsolicited phone spam and cyber harassment.
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">1. Data Minimization</h3>
           <p>
@@ -77,7 +77,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentEn: (
         <>
           <p>
-            By accessing or registering with RoktoBondhu, you agree to comply with our Terms of Service.
+            By accessing or registering with ROKTOS, you agree to comply with our Terms of Service.
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">1. Prohibition of Commercialization</h3>
           <p>
@@ -97,7 +97,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentBn: (
         <>
           <p>
-            রক্তবন্ধুতে কোনো প্রকার ‘পেইড ভেরিফিকেশন’ বা টাকার বিনিময়ে ব্যাজ বিক্রয় করা হয় না।
+            রক্তস (ROKTOS)-এ কোনো প্রকার ‘পেইড ভেরিফিকেশন’ বা টাকার বিনিময়ে ব্যাজ বিক্রয় করা হয় না।
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">১. দুটি পৃথক পর্যায়</h3>
           <p>
@@ -113,7 +113,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentEn: (
         <>
           <p>
-            Verification on RoktoBondhu is transparent, merit-based, non-commercial, and never purchasable.
+            Verification on ROKTOS is transparent, merit-based, non-commercial, and never purchasable.
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">1. Two Distinct Review States</h3>
           <p>
@@ -178,7 +178,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentEn: (
         <>
           <p>
-            RoktoBondhu is committed to digital inclusivity, adhering to WCAG 2.2 AA accessibility best practices.
+            ROKTOS is committed to digital inclusivity, adhering to WCAG 2.2 AA accessibility best practices.
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">Implemented Features</h3>
           <ul className="list-disc pl-5 space-y-1">
@@ -197,7 +197,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentBn: (
         <>
           <p>
-            রক্তবন্ধুর সকল স্বাস্থ্য ও রক্তদান সংক্রান্ত তথ্য বিশ্ব স্বাস্থ্য সংস্থা (WHO), বাংলাদেশ রক্ত পরিসঞ্চালন আইন এবং স্বাস্থ্য অধিদপ্তরের নির্ভরযোগ্য চিকিৎসা নির্দেশিকা অবলম্বনে রচিত।
+            রক্তস (ROKTOS)-এর সকল স্বাস্থ্য ও রক্তদান সংক্রান্ত তথ্য বিশ্ব স্বাস্থ্য সংস্থা (WHO), বাংলাদেশ রক্ত পরিসঞ্চালন আইন এবং স্বাস্থ্য অধিদপ্তরের নির্ভরযোগ্য চিকিৎসা নির্দেশিকা অবলম্বনে রচিত।
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">তথ্য যাচাইয়ের নীতি</h3>
           <p>
@@ -208,7 +208,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
       contentEn: (
         <>
           <p>
-            All educational materials on RoktoBondhu are sourced directly from peer-reviewed public health guidelines, the WHO, and Bangladesh National Blood Transfusion regulations.
+            All educational materials on ROKTOS are sourced directly from peer-reviewed public health guidelines, the WHO, and Bangladesh National Blood Transfusion regulations.
           </p>
           <h3 className="text-base font-bold text-stone-900 mt-4 mb-2">Review Standards</h3>
           <p>
@@ -225,7 +225,7 @@ export const PolicyPage: React.FC<PolicyPageProps> = ({ slug }) => {
     <>
       <SEOHead
         title={language === 'bn' ? current.titleBn : current.titleEn}
-        description={`RoktoBondhu official policy: ${current.titleEn}`}
+        description={`ROKTOS official policy: ${current.titleEn}`}
         canonicalPath={`/${slug}`}
       />
 

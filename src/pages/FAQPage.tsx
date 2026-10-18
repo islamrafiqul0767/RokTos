@@ -12,10 +12,10 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
-    qBn: 'রক্তবন্ধু কি কোনো অর্থ লেনদেন বা চার্জ নেয়?',
-    qEn: 'Does RoktoBondhu charge any money or service fees?',
-    aBn: 'না। রক্তবন্ধু সম্পূর্ণ অবাণিজ্যিক এবং বিনামূল্যে পরিচালিত একটি মানবিক প্ল্যাটফর্ম। রক্তদানের বিনিময়ে অর্থ লেনদেন করা আইনত দণ্ডনীয় অপরাধ।',
-    aEn: 'No. RoktoBondhu is strictly non-commercial and 100% free. Selling or purchasing blood is strictly illegal in Bangladesh.',
+    qBn: 'রক্তস (ROKTOS) কি কোনো অর্থ লেনদেন বা চার্জ নেয়?',
+    qEn: 'Does ROKTOS charge any money or service fees?',
+    aBn: 'না। রক্তস সম্পূর্ণ অবাণিজ্যিক এবং বিনামূল্যে পরিচালিত একটি মানবিক প্ল্যাটফর্ম। রক্তদানের বিনিময়ে অর্থ লেনদেন করা আইনত দণ্ডনীয় অপরাধ।',
+    aEn: 'No. ROKTOS is strictly non-commercial and 100% free. Selling or purchasing blood is strictly illegal in Bangladesh.',
   },
   {
     qBn: 'আমার মোবাইল নম্বর কি সবার কাছে দৃশ্যমান হবে?',

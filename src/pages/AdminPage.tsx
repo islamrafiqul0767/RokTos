@@ -153,7 +153,7 @@ export const AdminPage: React.FC = () => {
     <>
       <SEOHead
         title={t.adminConsole}
-        description="RoktoBondhu Staff Console"
+        description="ROKTOS Staff Console"
         noindex={true}
         canonicalPath="/admin"
       />

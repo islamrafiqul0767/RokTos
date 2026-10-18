@@ -137,7 +137,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
     <>
       <SEOHead
         title={t.dashboard}
-        description="RoktoBondhu User Dashboard"
+        description="ROKTOS User Dashboard"
         noindex={true}
         canonicalPath="/dashboard"
       />

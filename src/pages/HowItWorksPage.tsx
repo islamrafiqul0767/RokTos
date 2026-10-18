@@ -14,13 +14,13 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
     <>
       <SEOHead
         title={t.howItWorks}
-        description="Learn how RoktoBondhu connects blood seekers with willing community donors with strict privacy safeguards."
+        description="Learn how ROKTOS connects blood seekers with willing community donors with strict privacy safeguards."
         canonicalPath="/how-it-works"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+          <span className="text-xs font-bold text-rose-800 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
             {language === 'bn' ? 'কার্যপ্রণালী গাইড' : 'Step-by-Step Guide'}
           </span>
           <h1 className="text-3xl font-extrabold text-stone-900 tracking-tight">
@@ -28,8 +28,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
           </h1>
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
             {language === 'bn'
-              ? 'রক্তবন্ধু কোনো বাণিজ্যিক প্ল্যাটফর্ম বা রক্ত ব্যাংক নয়। এটি পারস্পরিক শ্রদ্ধাবোধ, গোপনীয়তা ও সম্মতির ভিত্তিতে রক্তদাতা ও রক্তপ্রার্থীদের সংযোগ করিয়ে দেয়।'
-              : 'RoktoBondhu is an opt-in volunteer coordination tool built to protect privacy and respect donors while serving patients in need.'}
+              ? 'রক্তস (ROKTOS) কোনো বাণিজ্যিক প্ল্যাটফর্ম বা রক্ত ব্যাংক নয়। এটি পারস্পরিক শ্রদ্ধাবোধ, গোপনীয়তা ও সম্মতির ভিত্তিতে রক্তদাতা ও রক্তপ্রার্থীদের সংযোগ করিয়ে দেয়।'
+              : 'ROKTOS is an opt-in volunteer coordination tool built to protect privacy and respect donors while serving patients in need.'}
           </p>
         </div>
 

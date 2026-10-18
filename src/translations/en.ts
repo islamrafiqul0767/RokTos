@@ -1,6 +1,8 @@
 export const en = {
   // Common
   siteName: 'ROKTOS',
+  siteNameBn: 'রক্তস',
+  siteDescriptor: 'ROKTOS — Bangladesh Volunteer Blood Donor Network',
   siteTagline: 'Connecting people who need blood with willing community donors.',
   disclaimerShort: 'ROKTOS is an opt-in volunteer discovery platform, not a medical clinic or blood bank. Always ensure cross-matching and mandatory screening under medical supervision prior to any transfusion.',
   emergencyTitle: 'Emergency Blood Need?',
@@ -12,6 +14,7 @@ export const en = {
   aboutUs: 'About ROKTOS',
   safety: 'Safety & Medical Guide',
   eligibility: 'Donor Eligibility',
+  verification: 'Verification Process',
   faq: 'Frequently Asked Questions',
   contact: 'Contact & Support',
   privacyPolicy: 'Privacy Policy',
@@ -38,11 +41,14 @@ export const en = {
   paused: 'Paused',
   demoBadge: 'Demo Data — Clearly labelled fictional record, not real public availability',
 
-  // Badges
+  // Badges & Verification States
   identityReviewed: 'Identity Details Reviewed',
   identityNotReviewed: 'Self-Reported Identity',
+  identityPending: 'Identity Review Pending',
   bloodGroupReviewed: 'Blood Group Evidence Reviewed',
   bloodGroupSelfReported: 'Self-Reported Blood Group',
+  eligibilityConfirmed: 'Age 18+ Confirmed Eligible',
+  eligibilityIncomplete: 'Eligibility Incomplete (Must be 18+)',
 
   // Home
   heroTitle: 'Humane Technology for Community Blood Discovery',
@@ -105,12 +111,12 @@ export const en = {
   areaLabel: 'Approximate Area / Locality (e.g. Mirpur 10)',
   preferredContactLabel: 'Preferred Contact Method',
   ageConfirmationLabel: 'I confirm that I am 18 years of age or older.',
-  termsAgreementLabel: 'I agree to the RoktoBondhu Terms of Use and Community Guidelines.',
+  termsAgreementLabel: 'I agree to the ROKTOS Terms of Use and Community Guidelines.',
   consentAgreementLabel: 'I give explicit consent to display my name, blood group, and approximate area in the public donor directory.',
   registerAsDonorBtn: 'Activate as Volunteer Donor',
 
   // Admin
-  adminTitle: 'RoktoBondhu Staff Moderation & Security Console',
+  adminTitle: 'ROKTOS Staff Moderation & Security Console',
   tabDonors: 'Donor Moderation',
   tabRequests: 'Blood Requests Queue',
   tabVerifications: 'Verification Reviews',

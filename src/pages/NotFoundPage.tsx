@@ -14,7 +14,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
     <>
       <SEOHead
         title="404 - পৃষ্ঠাটি পাওয়া যায়নি / Page Not Found"
-        description="The requested page could not be located on RoktoBondhu."
+        description="The requested page could not be located on ROKTOS."
         noindex={true}
       />
 

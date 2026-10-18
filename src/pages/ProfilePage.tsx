@@ -29,13 +29,13 @@ export const ProfilePage: React.FC = () => {
       },
       profile: profile,
       exportedAt: new Date().toISOString(),
-      note: 'RoktoBondhu GDPR/Privacy Data Export Package',
+      note: 'ROKTOS GDPR/Privacy Data Export Package',
     };
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `roktobondhu_data_export_${user.uid}.json`;
+    a.download = `roktos_data_export_${user.uid}.json`;
     a.click();
     setDownloadNotice(true);
     setTimeout(() => setDownloadNotice(false), 4000);
@@ -157,7 +157,7 @@ export const ProfilePage: React.FC = () => {
           <p className="text-xs text-rose-950 leading-relaxed">
             {language === 'bn'
               ? 'আপনার অ্যাকাউন্ট মুছে ফেলতে চাইলে আমাদের সাপোর্ট ইমেইলে (islamrafiqul0767@gmail.com) অনুরোধ পাঠান। আপনার অনুরোধ পাওয়ার পর সর্বজনীন তালিকা ও ডাটাবেজ থেকে আপনার সকল প্রোফাইল ও রক্তের আবেদন অনতিবিলম্বে সরিয়ে ফেলা হবে।'
-              : 'To permanently erase your profile and records from RoktoBondhu, submit a deletion request to islamrafiqul0767@gmail.com. All public listings are purged upon request.'}
+              : 'To permanently erase your profile and records from ROKTOS, submit a deletion request to islamrafiqul0767@gmail.com. All public listings are purged upon request.'}
           </p>
         </div>
       </div>

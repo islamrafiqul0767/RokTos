@@ -27,13 +27,13 @@ export const ContactPage: React.FC = () => {
     <>
       <SEOHead
         title={t.contact}
-        description="Contact the RoktoBondhu volunteer support team for inquiries, bug reports, and assistance in Bangladesh."
+        description="Contact the ROKTOS volunteer support team for inquiries, bug reports, and assistance in Bangladesh."
         canonicalPath="/contact"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+          <span className="text-xs font-bold text-rose-800 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
             {language === 'bn' ? 'সহায়তা ও যোগাযোগ' : 'Support & Inquiries'}
           </span>
           <h1 className="text-3xl font-extrabold text-stone-900 tracking-tight">
@@ -42,7 +42,7 @@ export const ContactPage: React.FC = () => {
           <p className="text-xs sm:text-sm text-stone-600">
             {language === 'bn'
               ? 'প্ল্যাটফর্ম সম্পর্কিত পরামর্শ, কারিগরি ত্রুটি বা নীতিমালার বিষয়ে আমাদের সাথে যোগাযোগ করুন।'
-              : 'Reach out to the RoktoBondhu technical and moderation team.'}
+              : 'Reach out to the ROKTOS technical and moderation team.'}
           </p>
         </div>
 
