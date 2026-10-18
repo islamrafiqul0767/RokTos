@@ -1,0 +1,209 @@
+{
+  "entities": {
+    "UserPrivateProfile": {
+      "title": "UserPrivateProfile",
+      "description": "Private profile containing PII and user-specific configuration",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 255 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "preferredLanguage": { "type": "string", "enum": ["bn", "en"] },
+        "division": { "type": "string", "maxLength": 50 },
+        "district": { "type": "string", "maxLength": 50 },
+        "upazila": { "type": "string", "maxLength": 50 },
+        "approximateArea": { "type": "string", "maxLength": 100 },
+        "preferredContactChannel": { "type": "string", "enum": ["phone", "email", "in_app"] },
+        "role": { "type": "string", "enum": ["visitor", "registered_user", "donor", "moderator", "verification_reviewer", "admin"] },
+        "isDonor": { "type": "boolean" },
+        "bloodGroup": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Unknown"] },
+        "identityReviewStatus": { "type": "string", "enum": ["not_started", "pending", "reviewed", "rejected", "needs_recheck"] },
+        "bloodGroupReviewStatus": { "type": "string", "enum": ["not_started", "pending", "reviewed", "rejected", "needs_recheck"] },
+        "consentGiven": { "type": "boolean" },
+        "consentVersion": { "type": "string", "maxLength": 20 },
+        "ageConfirmed18": { "type": "boolean" },
+        "termsAccepted": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "displayName", "email", "preferredLanguage", "role", "createdAt", "updatedAt"]
+    },
+    "PublicDonorProfile": {
+      "title": "PublicDonorProfile",
+      "description": "Safe privacy-preserving public donor projection",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayLabel": { "type": "string", "maxLength": 100 },
+        "bloodGroup": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Unknown"] },
+        "bloodGroupReviewStatus": { "type": "string", "enum": ["not_started", "pending", "reviewed", "rejected", "needs_recheck"] },
+        "identityReviewStatus": { "type": "string", "enum": ["not_started", "pending", "reviewed", "rejected", "needs_recheck"] },
+        "division": { "type": "string", "maxLength": 50 },
+        "district": { "type": "string", "maxLength": 50 },
+        "upazila": { "type": "string", "maxLength": 50 },
+        "approximateArea": { "type": "string", "maxLength": 100 },
+        "selfReportedAvailability": { "type": "string", "enum": ["available", "temporarily_unavailable", "paused"] },
+        "availabilityLastUpdatedAt": { "type": "string" },
+        "publicVisibility": { "type": "boolean" },
+        "moderationStatus": { "type": "string", "enum": ["approved", "pending", "rejected"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "displayLabel", "bloodGroup", "division", "district", "selfReportedAvailability", "publicVisibility", "moderationStatus", "createdAt", "updatedAt"]
+    },
+    "BloodRequest": {
+      "title": "BloodRequest",
+      "description": "Structured blood donation request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "createdByUid": { "type": "string", "maxLength": 128 },
+        "requesterDisplayLabel": { "type": "string", "maxLength": 100 },
+        "patientDisplayNameOrInitials": { "type": "string", "maxLength": 50 },
+        "requestedBloodGroup": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Unknown"] },
+        "unitsNeeded": { "type": "string", "maxLength": 10 },
+        "hospitalName": { "type": "string", "maxLength": 100 },
+        "hospitalArea": { "type": "string", "maxLength": 100 },
+        "division": { "type": "string", "maxLength": 50 },
+        "district": { "type": "string", "maxLength": 50 },
+        "upazila": { "type": "string", "maxLength": 50 },
+        "neededByDate": { "type": "string", "maxLength": 50 },
+        "urgencyLevel": { "type": "string", "enum": ["routine", "urgent", "critical"] },
+        "shortDescription": { "type": "string", "maxLength": 500 },
+        "requesterContactPreference": { "type": "string", "enum": ["in_app", "phone_on_approval"] },
+        "status": { "type": "string", "enum": ["draft", "pending_moderation", "approved", "fulfilled", "cancelled", "expired", "rejected"] },
+        "moderationStatus": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "isPublic": { "type": "boolean" },
+        "reportCount": { "type": "string", "maxLength": 10 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "createdByUid", "requesterDisplayLabel", "patientDisplayNameOrInitials", "requestedBloodGroup", "division", "district", "status", "moderationStatus", "createdAt", "updatedAt"]
+    },
+    "ContactRequest": {
+      "title": "ContactRequest",
+      "description": "Consent-based seeker-to-donor contact request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "requesterUid": { "type": "string", "maxLength": 128 },
+        "requesterDisplayLabel": { "type": "string", "maxLength": 100 },
+        "requesterEmail": { "type": "string", "maxLength": 255 },
+        "donorUid": { "type": "string", "maxLength": 128 },
+        "donorDisplayLabel": { "type": "string", "maxLength": 100 },
+        "requestId": { "type": "string", "maxLength": 128 },
+        "message": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined", "cancelled"] },
+        "donorContactRevealed": { "type": "string", "maxLength": 255 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "requesterUid", "donorUid", "message", "status", "createdAt", "updatedAt"]
+    },
+    "UserReport": {
+      "title": "UserReport",
+      "description": "Abuse or violation report submitted by users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "reporterUid": { "type": "string", "maxLength": 128 },
+        "targetType": { "type": "string", "enum": ["donor", "blood_request", "contact_request", "other"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "targetTitleOrName": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "enum": ["scam", "false_request", "harassment", "privacy_violation", "impersonation", "abusive_content", "outdated_fulfilled", "other"] },
+        "explanation": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "resolved", "dismissed"] },
+        "reviewerNotes": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "reporterUid", "targetType", "targetId", "category", "explanation", "status", "createdAt"]
+    },
+    "VerificationReview": {
+      "title": "VerificationReview",
+      "description": "Identity and blood group review record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "uid": { "type": "string", "maxLength": 128 },
+        "userDisplayLabel": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["identity", "blood_group"] },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "rejected", "needs_recheck"] },
+        "reviewerUid": { "type": "string", "maxLength": 128 },
+        "policyVersion": { "type": "string", "maxLength": 20 },
+        "reasonCode": { "type": "string", "maxLength": 50 },
+        "reviewerNotes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" },
+        "reviewedAt": { "type": "string" }
+      },
+      "required": ["id", "uid", "type", "status", "policyVersion", "createdAt"]
+    },
+    "ModerationAction": {
+      "title": "ModerationAction",
+      "description": "Staff moderation action audit record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "actorUid": { "type": "string", "maxLength": 128 },
+        "targetType": { "type": "string", "enum": ["donor", "blood_request", "user_report", "verification"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "action": { "type": "string", "maxLength": 50 },
+        "reasonCode": { "type": "string", "maxLength": 50 },
+        "policyVersion": { "type": "string", "maxLength": 20 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "actorUid", "targetType", "targetId", "action", "createdAt"]
+    },
+    "SiteConfig": {
+      "title": "SiteConfig",
+      "description": "Public non-secret site configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "siteNameBn": { "type": "string", "maxLength": 100 },
+        "siteNameEn": { "type": "string", "maxLength": 100 },
+        "taglineBn": { "type": "string", "maxLength": 200 },
+        "taglineEn": { "type": "string", "maxLength": 200 },
+        "allowPublicRegistration": { "type": "boolean" },
+        "sensitiveDocumentUploadsEnabled": { "type": "boolean" },
+        "defaultContactEmail": { "type": "string", "maxLength": 255 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "siteNameBn", "siteNameEn", "allowPublicRegistration", "sensitiveDocumentUploadsEnabled"]
+    }
+  },
+  "firestore": {
+    "/userPrivateProfiles/{uid}": {
+      "schema": "UserPrivateProfile",
+      "description": "Private profile of user accessible only by owner or staff"
+    },
+    "/publicDonorProfiles/{uid}": {
+      "schema": "PublicDonorProfile",
+      "description": "Privacy-preserving public directory projection of opted-in donors"
+    },
+    "/bloodRequests/{requestId}": {
+      "schema": "BloodRequest",
+      "description": "Blood donation requests listed publicly once approved"
+    },
+    "/contactRequests/{contactRequestId}": {
+      "schema": "ContactRequest",
+      "description": "Seeker to donor contact requests restricted to parties involved"
+    },
+    "/userReports/{reportId}": {
+      "schema": "UserReport",
+      "description": "Abuse reports created by authenticated users and read by staff"
+    },
+    "/verificationReviews/{reviewId}": {
+      "schema": "VerificationReview",
+      "description": "Staff verification review audit trail"
+    },
+    "/moderationActions/{actionId}": {
+      "schema": "ModerationAction",
+      "description": "Staff moderation audit trail"
+    },
+    "/siteConfig/{configId}": {
+      "schema": "SiteConfig",
+      "description": "Public system configuration document"
+    }
+  }
+}

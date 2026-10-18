@@ -1,0 +1,164 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == 'islamrafiqul0767@gmail.com') ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 1. User Private Profiles
+    match /userPrivateProfiles/{uid} {
+      allow get: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && request.auth.uid == uid && isValidId(uid) &&
+        incoming().uid == request.auth.uid &&
+        (isAdmin() || incoming().role == 'registered_user') &&
+        incoming().displayName is string && incoming().displayName.size() <= 100 &&
+        incoming().email is string && incoming().email.size() <= 255;
+      allow update: if isSignedIn() && (
+        isAdmin() || (
+          request.auth.uid == uid &&
+          incoming().uid == existing().uid &&
+          incoming().role == existing().role &&
+          incoming().identityReviewStatus == existing().identityReviewStatus &&
+          incoming().bloodGroupReviewStatus == existing().bloodGroupReviewStatus
+        )
+      );
+      allow delete: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // 2. Public Donor Profiles
+    match /publicDonorProfiles/{uid} {
+      allow get: if (resource.data.publicVisibility == true && resource.data.moderationStatus == 'approved') ||
+        (isSignedIn() && (request.auth.uid == uid || isAdmin()));
+      allow list: if (resource.data.publicVisibility == true && resource.data.moderationStatus == 'approved') ||
+        (isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin()));
+      allow create: if isSignedIn() && (request.auth.uid == uid || isAdmin()) && isValidId(uid) &&
+        incoming().uid == request.auth.uid &&
+        incoming().displayLabel is string && incoming().displayLabel.size() <= 100 &&
+        incoming().bloodGroup in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Unknown'] &&
+        (isAdmin() || (incoming().bloodGroupReviewStatus == 'not_started' && incoming().identityReviewStatus == 'not_started'));
+      allow update: if isSignedIn() && (
+        isAdmin() || (
+          request.auth.uid == uid &&
+          incoming().uid == existing().uid &&
+          incoming().bloodGroupReviewStatus == existing().bloodGroupReviewStatus &&
+          incoming().identityReviewStatus == existing().identityReviewStatus &&
+          incoming().moderationStatus == existing().moderationStatus
+        )
+      );
+      allow delete: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // 3. Blood Requests
+    match /bloodRequests/{requestId} {
+      allow get: if resource.data.status == 'approved' ||
+        (isSignedIn() && (resource.data.createdByUid == request.auth.uid || isAdmin()));
+      allow list: if resource.data.status == 'approved' ||
+        (isSignedIn() && (resource.data.createdByUid == request.auth.uid || isAdmin()));
+      allow create: if isSignedIn() && isValidId(requestId) &&
+        incoming().createdByUid == request.auth.uid &&
+        incoming().patientDisplayNameOrInitials is string && incoming().patientDisplayNameOrInitials.size() <= 100 &&
+        incoming().requestedBloodGroup in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Unknown'];
+      allow update: if isSignedIn() && (
+        isAdmin() || (
+          resource.data.createdByUid == request.auth.uid &&
+          incoming().createdByUid == existing().createdByUid &&
+          (existing().status in ['pending_moderation', 'approved', 'draft']) &&
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'patientDisplayNameOrInitials', 'requestedBloodGroup', 'unitsNeeded', 'hospitalName',
+            'hospitalArea', 'division', 'district', 'upazila', 'neededByDate', 'urgencyLevel',
+            'shortDescription', 'requesterContactPreference', 'status', 'updatedAt'
+          ])
+        )
+      );
+      allow delete: if isSignedIn() && (resource.data.createdByUid == request.auth.uid || isAdmin());
+    }
+
+    // 4. Contact Requests
+    match /contactRequests/{contactRequestId} {
+      allow get: if isSignedIn() && (
+        resource.data.requesterUid == request.auth.uid ||
+        resource.data.donorUid == request.auth.uid ||
+        isAdmin()
+      );
+      allow list: if isSignedIn() && (
+        resource.data.requesterUid == request.auth.uid ||
+        resource.data.donorUid == request.auth.uid ||
+        isAdmin()
+      );
+      allow create: if isSignedIn() && isValidId(contactRequestId) &&
+        incoming().requesterUid == request.auth.uid &&
+        incoming().status == 'pending' &&
+        incoming().message is string && incoming().message.size() <= 500;
+      allow update: if isSignedIn() && (
+        isAdmin() || (
+          resource.data.donorUid == request.auth.uid &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['status', 'donorContactRevealed', 'updatedAt'])
+        ) || (
+          resource.data.requesterUid == request.auth.uid &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+        )
+      );
+      allow delete: if isSignedIn() && (resource.data.requesterUid == request.auth.uid || isAdmin());
+    }
+
+    // 5. User Reports
+    match /userReports/{reportId} {
+      allow get, list: if isAdmin();
+      allow create: if isSignedIn() && isValidId(reportId) &&
+        incoming().reporterUid == request.auth.uid &&
+        incoming().status == 'pending' &&
+        incoming().explanation is string && incoming().explanation.size() <= 1000;
+      allow update, delete: if isAdmin();
+    }
+
+    // 6. Verification Reviews
+    match /verificationReviews/{reviewId} {
+      allow get: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow list: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 7. Moderation Actions
+    match /moderationActions/{actionId} {
+      allow read, write: if isAdmin();
+    }
+
+    // 8. Site Config (Public readable, Admin writable)
+    match /siteConfig/{configId} {
+      allow get, list: if true;
+      allow write: if isAdmin();
+    }
+
+    // 9. Admin List
+    match /admins/{uid} {
+      allow get: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow list, write: if isAdmin();
+    }
+  }
+}

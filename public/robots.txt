@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Allow: /blood-requests
+Allow: /how-it-works
+Allow: /about
+Allow: /safety
+Allow: /donor-eligibility
+Allow: /faq
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+Allow: /verification-policy
+Allow: /community-guidelines
+Allow: /accessibility
+Allow: /editorial-policy
+
+# Exclude private accounts, admin panels, and user-generated donor directories with PII
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /donor/register
+Disallow: /donors
+
+Sitemap: https://ais-pre-me4lxl52u5ytjzbof64jux-363666552580.asia-southeast1.run.app/sitemap.xml
